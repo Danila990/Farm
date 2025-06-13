@@ -3,7 +3,9 @@ namespace MyCode
     public enum PlatformType
     {
         Default = 0,
-        Player = 1,
-        Empty = 2,
+        Spawn = 1,
+        Finish = 2,
+        Empty = 3,
+        Coin = 4,
     }
 }

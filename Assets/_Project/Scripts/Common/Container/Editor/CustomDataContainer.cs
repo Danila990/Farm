@@ -10,7 +10,7 @@ public class CustomDataContainer : PropertyDrawer
     private float objectLabelWidth = 45f;
     private float cacheLabelWidth = 45f;
 
-    private float objectFieldWidth = 100f;
+    private float objectFieldWidth = 170f;
     private float cacheFieldWidth = 40f;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

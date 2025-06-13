@@ -74,7 +74,7 @@ namespace MyCode
                     color = Color.white;
                     break;
 
-                case PlatformType.Player:
+                case PlatformType.Spawn:
                     color = Color.green;
                     break;
 
