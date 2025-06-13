@@ -1,7 +1,6 @@
 using UnityEngine;
-using VContainer.Unity;
 
-public class CharacterInput : IStartable, ITickable
+public class CharacterInput
 {
     private GameInputSystem _gameInputSystem;
 

@@ -1,5 +1,7 @@
 using MyCode;
 using System;
+using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GridController : MonoBehaviour
@@ -9,29 +11,44 @@ public class GridController : MonoBehaviour
     [SerializeField] private GridMap[] _maps;
 
     private GridMap _currentMap;
+    private int _mapIndex;
 
-    public GridMap GetGridFieldMap()
+    public GridMap GetGridMap()
     {
         return _currentMap;
     }
 
-    public void ActivateFirstGridField()
+    public void ActivateFirstGridMap()
     {
-
+        ActivateMap(0);
     }
 
-    public void PreviousGridField()
+    public void PreviousGridMap()
     {
-
+        _mapIndex--;
+        _mapIndex = math.clamp(_mapIndex, 0, _maps.Length);
+        ActivateMap(_mapIndex);
     }
 
-    public void NextGridField()
+    public void NextGridMap()
     {
-
+        _mapIndex++;
+        if (_mapIndex >= _maps.Length)
+        {
+            Debug.Log("end");
+        }
+        else
+            ActivateMap(_mapIndex);
     }
 
-    public void ResetGridField()
+    private void ActivateMap(int mapIndex)
     {
+        if(_currentMap != null)
+            _currentMap.gameObject.SetActive(false);
 
+        _mapIndex = mapIndex;
+        _currentMap = _maps[_mapIndex];
+        _currentMap.gameObject.SetActive(true);
+        ChangeMap?.Invoke(_currentMap);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace MyCode
 {
     public class Platform : MonoBehaviour

@@ -7,6 +7,7 @@ namespace MyCode.Constructor
 {
     public class GridConstructor : MonoBehaviour
     {
+#if UNITY_EDITOR
         [HideInInspector] public ConstructorLine[] linesY;
         [SerializeField] private DataContainer _container;
         public float offsetPlatform = 0.3f;
@@ -152,11 +153,14 @@ namespace MyCode.Constructor
             return new Vector3(gridWidth, 0, gridHeight) / 2;
         }
         #endregion
+#endif
     }
 
+#if UNITY_EDITOR
     [Serializable]
     public class ConstructorLine
     {
         public PlatformType[] lineX;
     }
+#endif
 }

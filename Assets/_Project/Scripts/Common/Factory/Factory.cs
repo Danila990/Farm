@@ -1,6 +1,5 @@
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
+using Zenject;
 
 namespace MyCode
 {
@@ -8,11 +7,11 @@ namespace MyCode
     {
         [SerializeField] private DataContainer _container;
 
-        [Inject] private IObjectResolver _resolver;
+        [Inject] private DiContainer _diContainer;
 
         public T CreateInjected<T>(string key, Vector3 position = default) where T : MonoBehaviour
         {
-            var createObject = _resolver.Instantiate(_container.Get<T>(key));
+            var createObject = _diContainer.InstantiatePrefabForComponent<T>(_container.Get<T>(key));
             createObject.transform.position = position;
             return createObject;
         }
