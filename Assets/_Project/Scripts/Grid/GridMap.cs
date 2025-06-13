@@ -14,6 +14,11 @@ namespace MyCode
             _grid = grid;
         }
 
+        public Vector2Int GetSizeGrid()
+        {
+            return new Vector2Int(_grid.Length, _grid[0].platforms.Length);
+        }
+
         public Platform GetPlatform(Vector2Int index)
         {
             int clampX = math.clamp(index.x, 0, _grid.Length);

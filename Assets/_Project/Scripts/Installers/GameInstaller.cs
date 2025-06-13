@@ -1,12 +1,28 @@
+using System;
 using UnityEngine;
 using Zenject;
 
-public class GameInstaller : MonoInstaller
+namespace MyCode
 {
-    [SerializeField] private GridController _gridController;
-
-    public override void InstallBindings()
+    public class GameInstaller : MonoInstaller
     {
-        Container.Bind<GridController>().FromInstance(_gridController).AsSingle();
+        [SerializeField] private GridController _gridController;
+
+        public override void InstallBindings()
+        {
+            BuildGrid();
+            BuildCharacter();
+        }
+
+        private void BuildCharacter()
+        {
+
+        }
+
+        private void BuildGrid()
+        {
+            Container.Bind<GridController>().FromInstance(_gridController).AsSingle();
+            Container.BindInterfacesTo<GridNavigator>().AsSingle();
+        }
     }
 }

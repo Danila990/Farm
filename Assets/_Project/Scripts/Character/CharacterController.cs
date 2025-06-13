@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class CharacterNavigation : MonoBehaviour
+    public class CharacterController : MonoBehaviour
     {
 
     }

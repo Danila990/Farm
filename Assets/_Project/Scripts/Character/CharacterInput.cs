@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class CharacterInput
+namespace MyCode
 {
-    private GameInputSystem _gameInputSystem;
-
-    public void Start()
+    public class CharacterInput
     {
-        _gameInputSystem = new GameInputSystem();
-        _gameInputSystem.Enable();
-    }
+        private GameInputSystem _gameInputSystem;
 
-    public void Tick()
-    {
-        
+        public void Start()
+        {
+            _gameInputSystem = new GameInputSystem();
+            _gameInputSystem.Enable();
+        }
+
+        public void Tick()
+        {
+
+        }
     }
 }
