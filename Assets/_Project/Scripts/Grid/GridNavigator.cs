@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using Zenject;
 
 namespace MyCode
 {
@@ -11,7 +10,6 @@ namespace MyCode
         private GridMap _gridMap;
         private Vector2Int _sizeGrid;
 
-        [Inject]
         public void Construct(GridController gridController)
         {
             _gridController = gridController;
