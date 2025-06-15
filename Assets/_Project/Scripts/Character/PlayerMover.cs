@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class CharacterMover : MonoBehaviour
+    public class PlayerMover : MonoBehaviour
     {
 
     }

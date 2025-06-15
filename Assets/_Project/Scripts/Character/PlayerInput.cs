@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class CharacterInput
+    public class PlayerInput
     {
         private GameInputSystem _gameInputSystem;
 
