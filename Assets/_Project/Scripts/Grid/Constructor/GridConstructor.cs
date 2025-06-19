@@ -74,6 +74,17 @@ namespace MyCode.Constructor
         {
             linesY = new ConstructorLine[1] { new ConstructorLine() { lineX = new PlatformType[1] { PlatformType.Default } } };
         }
+
+        public void ResetPlatforms()
+        {
+            for (int i = 0; i < linesY.Length; i++)
+            {
+                for (int j = 0; j < linesY[0].lineX.Length; j++)
+                {
+                    linesY[i].lineX[j] = PlatformType.Default;
+                }
+            }
+        }
         #endregion
 
         #region CreateGrid

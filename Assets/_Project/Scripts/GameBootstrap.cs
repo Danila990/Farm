@@ -9,6 +9,7 @@ namespace MyCode
 
         private void Start()
         {
+            new GameObject("Event Bus").AddComponent<EventBus>();
             _gridManager.CreateGrid();
             _playerManager.CreatePlayer();
         }

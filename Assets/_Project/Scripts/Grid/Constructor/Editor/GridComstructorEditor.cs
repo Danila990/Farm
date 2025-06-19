@@ -27,7 +27,10 @@ namespace MyCode.Constructor
             BaseButton("Remove Line Y", _constructor.RemoveYGrid);
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.BeginHorizontal();
             BaseButton("Reset Grid", _constructor.ResetGrid);
+            BaseButton("Reset Platform Types", _constructor.ResetPlatforms);
+            EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(5);
 
             BaseMidlleText("Grid map", 3);
@@ -40,8 +43,7 @@ namespace MyCode.Constructor
             BaseButton("Create new prefab", _constructor.CreatePrefab);
 
             PrinSizeGrid();
-            DrawPreviewGridtest();
-            //DrawPreviewGrid();
+            DrawPreviewGrid();
         }
 
         private void PrinSizeGrid()
@@ -50,7 +52,7 @@ namespace MyCode.Constructor
             BaseMidlleText($"Grid: X - {sizeGrid.x}, Y - {sizeGrid.y}", 10);
         }
 
-        private void DrawPreviewGridtest()
+        private void DrawPreviewGrid()
         {
             for (int i = _constructor.linesY.Length - 1; i >= 0; i--)
             {
@@ -74,7 +76,7 @@ namespace MyCode.Constructor
             }
         }
 
-        private void DrawPreviewGrid()
+        /*private void DrawPreviewGrid()
         {
             for (int i = 0; i < _constructor.linesY.Length; i++)
             {
@@ -96,7 +98,7 @@ namespace MyCode.Constructor
 
                 EditorGUILayout.EndHorizontal();
             }
-        }
+        }*/
 
         private void BaseMidlleText(string text, int space)
         {

@@ -4,7 +4,9 @@ namespace MyCode
 {
     public class GridManager : Singleton<GridManager>
     {
-        [SerializeField] private GridMap _gridMap;
+        [SerializeField] private GridController _gridController;
+
+        public GridMap CurrentMap => _gridController.GetGridMap();
 
         public void CreateGrid()
         {
