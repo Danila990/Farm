@@ -39,6 +39,8 @@ namespace MyCode
                     _gridIndex = nextIndex;
                     await _moveComponent.MoveAsync(platform1.transform.position, _moveCts.Token);
                 }
+
+                await Task.Yield();
             }
         }
     }
