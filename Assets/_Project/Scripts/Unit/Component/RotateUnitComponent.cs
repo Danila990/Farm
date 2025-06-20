@@ -7,6 +7,11 @@ namespace MyCode
     {
         [SerializeField] private float _rotationSpeed = 720f;
 
+        public void Setup(float rotationSpeed)
+        {
+            _rotationSpeed = rotationSpeed;
+        }
+
         public async Task RotateAsync(DirectionType direction)
         {
             if (direction == DirectionType.None)

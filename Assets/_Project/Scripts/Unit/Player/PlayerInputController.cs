@@ -13,7 +13,7 @@ namespace MyCode
                 if (dir != DirectionType.None)
                     return dir;
 
-                await Task.Yield(); // ждать следующий кадр
+                await Task.Yield();
             }
         }
 

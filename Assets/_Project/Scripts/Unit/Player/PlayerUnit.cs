@@ -16,9 +16,11 @@ namespace MyCode
         private CancellationTokenSource _moveCts;
         private Vector2Int _gridIndex;
 
-        public void Setup(Vector2Int gridIndex)
+        public void Setup(Vector2Int gridIndex, float moveSpeed, float rotateSpeed)
         {
             _gridIndex = gridIndex;
+            _moveComponent.Setup(moveSpeed);
+            _rotateComponent.Setup(rotateSpeed);
             StartMove();
         }
 
@@ -34,10 +36,10 @@ namespace MyCode
                 await _rotateComponent.RotateAsync(nextDirection);
 
                 Vector2Int nextIndex = _gridIndex + nextDirection.ToVector();
-                if (_gridNavigation.TryGetPlatform(nextIndex, out Platform platform1))
+                if (_gridNavigation.TryGetPlatform(nextIndex, out Platform platform))
                 {
                     _gridIndex = nextIndex;
-                    await _moveComponent.MoveAsync(platform1.transform.position, _moveCts.Token);
+                    await _moveComponent.MoveAsync(platform.transform.position, _moveCts.Token);
                 }
 
                 await Task.Yield();
