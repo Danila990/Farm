@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2971331531584563466}
   - component: {fileID: 521069086435987019}
   m_Layer: 0
-  m_Name: Platform_Spawn
+  m_Name: Platform_PlayerSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -48,50 +48,26 @@ namespace MyCode.Constructor
 
         private void PrinSizeGrid()
         {
-            Vector2Int sizeGrid = new Vector2Int(_constructor.linesY[0].lineX.Length, _constructor.linesY.Length);
+            Vector2Int sizeGrid = new Vector2Int(_constructor.linesX.Length, _constructor.linesX[0].lineY.Length);
             BaseMidlleText($"Grid: X - {sizeGrid.x}, Y - {sizeGrid.y}", 10);
-        }
-
-        private void DrawPreviewGrid()
-        {
-            for (int i = _constructor.linesY.Length - 1; i >= 0; i--)
-            {
-                EditorGUILayout.Space(5);
-                EditorGUILayout.BeginHorizontal();
-                if (_constructor.linesY[i] != null)
-                {
-                    for (int j = 0; j < _constructor.linesY[i].lineX.Length; j++)
-                    {
-                        Color enumColor = GetPlatfromColor(_constructor.linesY[i].lineX[j]);
-                        Rect rect = GUILayoutUtility.GetRect(20, 20);
-                        EditorGUI.DrawRect(rect, enumColor);
-                        GUI.color = Color.white;
-
-                        _constructor.linesY[i].lineX[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesY[i].lineX[j]);
-                        GUI.color = Color.white;
-                    }
-                }
-
-                EditorGUILayout.EndHorizontal();
-            }
         }
 
         /*private void DrawPreviewGrid()
         {
-            for (int i = 0; i < _constructor.linesY.Length; i++)
+            for (int i = _constructor.linesX.Length - 1; i >= 0; i--)
             {
                 EditorGUILayout.Space(5);
                 EditorGUILayout.BeginHorizontal();
-                if (_constructor.linesY[i] != null)
+                if (_constructor.linesX[i] != null)
                 {
-                    for (int j = 0; j < _constructor.linesY[i].lineX.Length; j++)
+                    for (int j = 0; j < _constructor.linesX[i].lineY.Length; j++)
                     {
-                        Color enumColor = GetPlatfromColor(_constructor.linesY[i].lineX[j]);
+                        Color enumColor = GetPlatfromColor(_constructor.linesX[i].lineY[j]);
                         Rect rect = GUILayoutUtility.GetRect(20, 20);
                         EditorGUI.DrawRect(rect, enumColor);
                         GUI.color = Color.white;
 
-                        _constructor.linesY[i].lineX[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesY[i].lineX[j]);
+                        _constructor.linesX[i].lineY[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesX[i].lineY[j]);
                         GUI.color = Color.white;
                     }
                 }
@@ -99,6 +75,31 @@ namespace MyCode.Constructor
                 EditorGUILayout.EndHorizontal();
             }
         }*/
+
+        private void DrawPreviewGrid()
+        {
+            for (int i = 0; i < _constructor.linesX.Length; i++)
+            {
+                EditorGUILayout.Space(5);
+                EditorGUILayout.BeginHorizontal();
+
+                if (_constructor.linesX[i] != null)
+                {
+                    for (int j = 0; j < _constructor.linesX[i].lineY.Length; j++)
+                    {
+                        Color enumColor = GetPlatfromColor(_constructor.linesX[i].lineY[j]);
+                        Rect rect = GUILayoutUtility.GetRect(20, 20);
+                        EditorGUI.DrawRect(rect, enumColor);
+                        GUI.color = Color.white;
+
+                        _constructor.linesX[i].lineY[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesX[i].lineY[j]);
+                        GUI.color = Color.white;
+                    }
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+        }
 
         private void BaseMidlleText(string text, int space)
         {

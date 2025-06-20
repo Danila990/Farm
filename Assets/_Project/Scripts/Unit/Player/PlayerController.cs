@@ -27,6 +27,7 @@ namespace MyCode
             Spawn = _gridController.GetCurrentMap().FindPlatform(PlatformType.PlayerSpawn);
             CreatePlayer();
             RespawnPlayer();
+            Player.Setup(Spawn.GridIndex);
         }
 
         private void RespawnPlayer()

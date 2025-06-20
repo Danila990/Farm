@@ -8,20 +8,20 @@ namespace MyCode.Constructor
     public class GridConstructor : MonoBehaviour
     {
 #if UNITY_EDITOR
-        [HideInInspector] public ConstructorLine[] linesY;
+        [HideInInspector] public ConstructorLine[] linesX;
         [SerializeField] private MoodArray<Platform> _container;
         public float offsetPlatform = 1f;
         public GridMap gridMap;
 
         private void OnValidate()
         {
-            if (linesY == null || linesY.Length == 0)
+            if (linesX == null || linesX.Length == 0)
             {
-                linesY = new ConstructorLine[1]
+                linesX = new ConstructorLine[1]
                 {
                     new ConstructorLine()
                     {
-                        lineX = new PlatformType[1]{ PlatformType.Default }
+                        lineY = new PlatformType[1]{ PlatformType.Default }
                     }
                 };
             }
@@ -31,57 +31,57 @@ namespace MyCode.Constructor
         #region Constructor
         public void AddYGrid()
         {
-            ConstructorLine[] newGridLines = new ConstructorLine[linesY.Length + 1];
-            linesY.CopyTo(newGridLines, 0);
-            newGridLines[linesY.Length] = new ConstructorLine() { lineX = new PlatformType[linesY[0].lineX.Length] };
-            linesY = newGridLines;
+            ConstructorLine[] newGridLines = new ConstructorLine[linesX.Length + 1];
+            linesX.CopyTo(newGridLines, 0);
+            newGridLines[linesX.Length] = new ConstructorLine() { lineY = new PlatformType[linesX[0].lineY.Length] };
+            linesX = newGridLines;
         }
 
         public void RemoveYGrid()
         {
-            if (linesY.Length <= 1)
+            if (linesX.Length <= 1)
                 return;
 
-            ConstructorLine[] newGridLines = new ConstructorLine[linesY.Length - 1];
-            Array.Copy(linesY, newGridLines, newGridLines.Length);
-            linesY = newGridLines;
+            ConstructorLine[] newGridLines = new ConstructorLine[linesX.Length - 1];
+            Array.Copy(linesX, newGridLines, newGridLines.Length);
+            linesX = newGridLines;
         }
 
         public void RemoveXGrid()
         {
-            if (linesY[0].lineX.Length <= 1)
+            if (linesX[0].lineY.Length <= 1)
                 return;
 
-            for (int i = 0; i < linesY.Length; i++)
+            for (int i = 0; i < linesX.Length; i++)
             {
-                PlatformType[] newRow = new PlatformType[linesY[i].lineX.Length - 1];
-                Array.Copy(linesY[i].lineX, newRow, newRow.Length);
-                linesY[i].lineX = newRow;
+                PlatformType[] newRow = new PlatformType[linesX[i].lineY.Length - 1];
+                Array.Copy(linesX[i].lineY, newRow, newRow.Length);
+                linesX[i].lineY = newRow;
             }
         }
 
         public void AddXGrid()
         {
-            for (int i = 0; i < linesY.Length; i++)
+            for (int i = 0; i < linesX.Length; i++)
             {
-                PlatformType[] newRow = new PlatformType[linesY[i].lineX.Length + 1];
-                linesY[i].lineX.CopyTo(newRow, 0);
-                linesY[i].lineX = newRow;
+                PlatformType[] newRow = new PlatformType[linesX[i].lineY.Length + 1];
+                linesX[i].lineY.CopyTo(newRow, 0);
+                linesX[i].lineY = newRow;
             }
         }
 
         public void ResetGrid()
         {
-            linesY = new ConstructorLine[1] { new ConstructorLine() { lineX = new PlatformType[1] { PlatformType.Default } } };
+            linesX = new ConstructorLine[1] { new ConstructorLine() { lineY = new PlatformType[1] { PlatformType.Default } } };
         }
 
         public void ResetPlatforms()
         {
-            for (int i = 0; i < linesY.Length; i++)
+            for (int i = 0; i < linesX.Length; i++)
             {
-                for (int j = 0; j < linesY[0].lineX.Length; j++)
+                for (int j = 0; j < linesX[0].lineY.Length; j++)
                 {
-                    linesY[i].lineX[j] = PlatformType.Default;
+                    linesX[i].lineY[j] = PlatformType.Default;
                 }
             }
         }
@@ -103,12 +103,12 @@ namespace MyCode.Constructor
 
         public PlatformType[,] ConvertGrid()
         {
-            PlatformType[,] platforms = new PlatformType[linesY.Length, linesY[0].lineX.Length];
-            for (int i = 0; i < linesY.Length; i++)
+            PlatformType[,] platforms = new PlatformType[linesX.Length, linesX[0].lineY.Length];
+            for (int i = 0; i < linesX.Length; i++)
             {
-                for (int j = 0; j < linesY[i].lineX.Length; j++)
+                for (int j = 0; j < linesX[i].lineY.Length; j++)
                 {
-                    platforms[i, j] = linesY[i].lineX[j];
+                    platforms[i, j] = linesX[i].lineY[j];
                 }
             }
 
@@ -131,9 +131,10 @@ namespace MyCode.Constructor
                 grid[x].LineValues = new Platform[gridSize.y];
                 for (int y = 0; y < gridSize.y; y++)
                 {
-                    Platform platform = CreatePlatform(platfromTypes[x, y], y, x, spawnOffset);
+                    Platform platform = CreatePlatform(platfromTypes[x, y], x, y, spawnOffset);
                     grid[x].LineValues[y] = platform;
                     platform.SetupPlatform(new Vector2Int(x, y));
+                    platform.gameObject.name = $"{x}, {y}";
                 }
             }
 
@@ -171,7 +172,7 @@ namespace MyCode.Constructor
     [Serializable]
     public class ConstructorLine
     {
-        public PlatformType[] lineX;
+        public PlatformType[] lineY;
     }
 #endif
 }

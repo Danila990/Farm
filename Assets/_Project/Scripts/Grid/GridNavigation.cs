@@ -21,7 +21,7 @@ namespace MyCode
         public bool CheckPlatform(Vector2Int platformIndex)
         {
             if (platformIndex.x < 0 || platformIndex.y < 0 ||
-                platformIndex.x > _sizeGrid.x || platformIndex.y > _sizeGrid.y)
+                platformIndex.x >= _sizeGrid.x || platformIndex.y >= _sizeGrid.y)
                 return false;
 
             return true;

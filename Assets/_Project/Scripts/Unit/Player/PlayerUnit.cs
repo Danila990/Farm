@@ -1,62 +1,45 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
+using VContainer;
 
 namespace MyCode
 {
     public class PlayerUnit : MonoBehaviour
     {
+        [SerializeField] private PlayerInputController _playerInput;
         [SerializeField] private RotateUnitComponent _rotateComponent;
         [SerializeField] private MoveUnitComponent _moveComponent;
-        [SerializeField] private GridNavigation _navigationComponent;
 
-        [SerializeField] private PcInputService _qcInputService;
+        [Inject] private GridNavigation _gridNavigation;
 
+        private CancellationTokenSource _moveCts;
         private Vector2Int _gridIndex;
-        private DirectionType _nextDirection;
 
         public void Setup(Vector2Int gridIndex)
         {
-            //_navigationComponent.Setup();
             _gridIndex = gridIndex;
-            _moveComponent.OnMoveComplete += OnMoveCompleted;
-            _qcInputService.OnMoveInput += OnMoveInput;
+            StartMove();
         }
 
-        private void OnMoveInput(DirectionType directionType)
+        private async void StartMove()
         {
-            _nextDirection = directionType;
-            if (!_moveComponent.IsMoved)
-                OnMoveCompleted();
-        }
+            while (true)
+            {
+                DirectionType nextDirection = await _playerInput.WaitForDirectionAsync();
 
-        private void OnMoveCompleted()
-        {
-            Move(_nextDirection);
-            if(_moveComponent.IsMoved)
-                return;
+                _moveCts?.Cancel();
+                _moveCts = new CancellationTokenSource();
 
-            _nextDirection = _rotateComponent.currentDirection;
-            Move(_rotateComponent.currentDirection);
-        }
+                await _rotateComponent.RotateAsync(nextDirection);
 
-        private void Move(DirectionType nextMoveDirection)
-        {
-            Vector2Int nextIndex = _gridIndex + nextMoveDirection.ToVector();
-            if (!_navigationComponent.CheckPlatform(nextIndex))
-                return;
-
-            Platform platform = _navigationComponent.GetPlatform(nextIndex);
-            if (!platform.IsCanMove)
-                return;
-
-            _gridIndex = nextIndex;
-            _rotateComponent.StartRotate(nextMoveDirection);
-            _moveComponent.StartMove(platform.transform.position);
-        }
-
-        private void OnDestroy()
-        {
-            _moveComponent.OnMoveComplete -= OnMoveCompleted;
-            _qcInputService.OnMoveInput -= OnMoveInput;
+                Vector2Int nextIndex = _gridIndex + nextDirection.ToVector();
+                if (_gridNavigation.TryGetPlatform(nextIndex, out Platform platform1))
+                {
+                    _gridIndex = nextIndex;
+                    await _moveComponent.MoveAsync(platform1.transform.position, _moveCts.Token);
+                }
+            }
         }
     }
 }
