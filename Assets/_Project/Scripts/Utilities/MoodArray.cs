@@ -12,7 +12,7 @@ namespace MyCode
         public T GetValue(int index)
         {
             if(index < 0 || index >= _array.Length)
-                return null;
+                throw new ArgumentException("index error");
 
             return _array[index];
         }

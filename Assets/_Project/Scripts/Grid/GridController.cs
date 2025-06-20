@@ -1,26 +1,33 @@
 using System;
-using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace MyCode
 {
     public class GridController : MonoBehaviour
     {
-        public event Action<GridMap> ChangeMap;
+        public event Action<GridMap> OnChangeMap;
 
         [SerializeField] private GridMap[] _maps;
 
         private GridMap _currentMap;
         private int _mapIndex;
 
-        public GridMap GetGridMap()
+        public GridMap GetCurrentMap()
         {
             return _currentMap;
         }
 
-        public void ActivateFirstGridMap()
+        public void Initialize()
         {
+            for (int i = 0; i < _maps.Length; i++)
+            {
+                GridMap map = Instantiate(_maps[i]);
+                map.gameObject.SetActive(false);
+                _maps[i] = map;
+            }
+
             ActivateMap(0);
         }
 
@@ -50,7 +57,7 @@ namespace MyCode
             _mapIndex = mapIndex;
             _currentMap = _maps[_mapIndex];
             _currentMap.gameObject.SetActive(true);
-            ChangeMap?.Invoke(_currentMap);
+            OnChangeMap?.Invoke(_currentMap);
         }
     }
 }

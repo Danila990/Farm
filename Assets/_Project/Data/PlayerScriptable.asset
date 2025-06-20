@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PlayerScriptable
   m_EditorClassIdentifier: 
   _playerInfo:
-    Prefab: {fileID: 9012114725675156943, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
+    Prefab: {fileID: 8232682552273421814, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
     MoveSpeed: 5
     RotateSpeed: 5
     Health: 5
+    PosOffset: {x: 0, y: 1, z: 0}

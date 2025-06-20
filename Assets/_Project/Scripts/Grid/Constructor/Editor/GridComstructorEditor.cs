@@ -125,7 +125,7 @@ namespace MyCode.Constructor
                 case PlatformType.Default:
                     return Color.white;
 
-                case PlatformType.Spawn:
+                case PlatformType.PlayerSpawn:
                     return Color.green;
 
                 case PlatformType.Empty:

@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace MyCode
@@ -8,28 +9,37 @@ namespace MyCode
     {
         [SerializeField] private ArrayLine<T>[] _values;
 
-        public int SizeX => _values.Length;
-        public int SizeY => _values[0].LineValues.Length;
+        public int LenghtX => _values.Length;
+        public int LenghtY => _values[0].LineValues.Length;
 
-        public void Set(ArrayLine<T>[] values) => _values = values;
+        public Vector2Int GetSize()
+        {
+            return new Vector2Int(LenghtX, LenghtY);
+        }
 
-        public ArrayLine<T>[] GetAll() => _values;
+        public void Set(ArrayLine<T>[] values)
+        {
+            _values = values;
+        }
+
+        public ArrayLine<T>[] GetAll()
+        {
+            return _values;
+        }
 
         public T Get(int x, int y)
         {
-            Vector2Int size = GetSize();
-            if(x < 0 || y < 0 || x > size.x || y > size.y)
-                throw new NullReferenceException($"The desired object is missing");
-
+            x = math.clamp(x, 0, LenghtX - 1);
+            y = math.clamp(y, 0, LenghtY - 1);
             return _values[x].LineValues[y];
         }
 
         public T[,] Convert()
         {
-            T[,] newArray = new T[SizeX, SizeY];
-            for (int x = 0; x < SizeX; x++)
+            T[,] newArray = new T[LenghtX, LenghtY];
+            for (int x = 0; x < LenghtX; x++)
             {
-                for (int y = 0; y < SizeY; y++)
+                for (int y = 0; y < LenghtY; y++)
                 {
                     newArray[x, y] = _values[x].LineValues[y];
                 }
@@ -37,8 +47,6 @@ namespace MyCode
 
             return newArray;
         }
-
-        public Vector2Int GetSize() => new Vector2Int(_values.Length, _values[0].LineValues.Length);
     }
 
     [Serializable]

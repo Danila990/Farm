@@ -1,17 +1,27 @@
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace MyCode
 {
-    public class GameBootstrap : MonoBehaviour
+    public class GameBootstrap : IInitializable
     {
-        [SerializeField] private GridManager _gridManager;
-        [SerializeField] private PlayerManager _playerManager;
+        private readonly GridController _gridController;
+        private readonly GridNavigation _gridNavigator;
+        private readonly PlayerController _playerController;
 
-        private void Start()
+        public GameBootstrap(GridController gridController, PlayerController playerController, GridNavigation gridNavigator)
         {
-            new GameObject("Event Bus").AddComponent<EventBus>();
-            _gridManager.CreateGrid();
-            _playerManager.CreatePlayer();
+            _gridController = gridController;
+            _playerController = playerController;
+            _gridNavigator = gridNavigator;
+        }
+
+        public void Initialize()
+        {
+            _gridController.Initialize();
+            _gridNavigator.Initialize();
+            _playerController.Initialize();
         }
     }
 }

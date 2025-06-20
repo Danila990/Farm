@@ -5,14 +5,17 @@ namespace MyCode
 {
     public class Platform : MonoBehaviour
     {
-        [field: SerializeField] public PlatformType platformType { get; private set; } = PlatformType.Default;
-        [field: SerializeField] public bool isCanMove { get; private set; } = true;
+        [SerializeField] private PlatformType _platformType = PlatformType.Default;
+        [SerializeField] private bool _isCanMove = true;
+        [SerializeField] private Vector2Int _gridIndex;
 
-        public Vector2Int gridIndex { get; private set; }
-        
+        public PlatformType PlatformType => _platformType;
+        public bool IsCanMove => _isCanMove;
+        public Vector2Int GridIndex => _gridIndex;
+
         public void SetupPlatform(Vector2Int gridIndex)
         {
-            this.gridIndex = gridIndex;
+            _gridIndex = gridIndex;
         }
     }
 }
