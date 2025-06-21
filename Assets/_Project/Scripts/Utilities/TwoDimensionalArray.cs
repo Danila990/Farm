@@ -29,9 +29,30 @@ namespace MyCode
 
         public T Get(int x, int y)
         {
-            x = math.clamp(x, 0, LenghtX - 1);
-            y = math.clamp(y, 0, LenghtY - 1);
+            if (!Check(x, y))
+                throw new ArgumentException();
+
             return _values[x].LineValues[y];
+        }
+
+        public bool Check(int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= LenghtX || y >= LenghtY)
+                return false;
+
+            return true;
+        }
+
+        public bool TryGet(int x, int y, out T getObject)
+        {
+            if (Check(x, y))
+            {
+                getObject = Get(x, y);
+                return true;
+            }
+
+            getObject = default;
+            return false;
         }
 
         public T[,] Convert()

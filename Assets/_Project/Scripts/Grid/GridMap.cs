@@ -1,10 +1,9 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
 namespace MyCode
 {
-    public class GridMap : MonoBehaviour
+    public class GridMap : MonoBehaviour, IGridMap
     {
         [SerializeField] private TwoDimensionalArray<Platform> _grid = new TwoDimensionalArray<Platform>();
 
@@ -37,6 +36,23 @@ namespace MyCode
                 .SelectMany(line => line.LineValues)
                 .Where(p => p != null && p.PlatformType == platform)
                 .ToArray();
+        }
+
+        public bool CheckPlatform(Vector2Int index)
+        {
+            return _grid.Check(index.x, index.y);
+        }
+
+        public bool TryGetPlatform(Vector2Int index, out Platform platform)
+        {
+            if(_grid.TryGet(index.x, index.y, out Platform getPlatform))
+            {
+                platform = getPlatform;
+                return true;
+            }
+
+            platform = default;
+            return false;
         }
     }
 }

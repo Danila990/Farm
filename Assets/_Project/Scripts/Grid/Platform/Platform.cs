@@ -17,5 +17,10 @@ namespace MyCode
         {
             _gridIndex = gridIndex;
         }
+
+        public virtual void Event()
+        {
+
+        }
     }
 }

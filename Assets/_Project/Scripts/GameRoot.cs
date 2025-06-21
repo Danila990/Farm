@@ -4,24 +4,27 @@ using VContainer.Unity;
 
 namespace MyCode
 {
-    public class GameBootstrap : IInitializable
+    public class GameRoot : IInitializable, IStartable
     {
-        private readonly GridController _gridController;
-        private readonly GridNavigation _gridNavigator;
+        private readonly GameGrid _gridController;
         private readonly PlayerController _playerController;
 
-        public GameBootstrap(GridController gridController, PlayerController playerController, GridNavigation gridNavigator)
+        public GameRoot(GameGrid gridController, PlayerController playerController)
         {
             _gridController = gridController;
             _playerController = playerController;
-            _gridNavigator = gridNavigator;
         }
 
         public void Initialize()
         {
             _gridController.Initialize();
-            _gridNavigator.Initialize();
             _playerController.Initialize();
+        }
+
+        public void Start()
+        {
+            _gridController.Startable();
+            _playerController.Startable();
         }
     }
 }

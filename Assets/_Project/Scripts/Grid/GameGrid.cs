@@ -1,23 +1,17 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace MyCode
 {
-    public class GridController : MonoBehaviour
+    public class GameGrid : MonoBehaviour
     {
-        public event Action<GridMap> OnChangeMap;
+        public event Action<IGridMap> OnChangeMap;
 
         [SerializeField] private GridMap[] _maps;
 
-        private GridMap _currentMap;
         private int _mapIndex;
-
-        public GridMap GetCurrentMap()
-        {
-            return _currentMap;
-        }
+        private GridMap _currentMap;
 
         public void Initialize()
         {
@@ -27,7 +21,15 @@ namespace MyCode
                 map.gameObject.SetActive(false);
                 _maps[i] = map;
             }
+        }
 
+        public IGridMap GetCurrentMap()
+        {
+            return _currentMap;
+        }
+
+        public void Startable()
+        {
             ActivateMap(0);
         }
 

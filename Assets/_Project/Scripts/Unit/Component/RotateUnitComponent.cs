@@ -1,40 +1,35 @@
-using UnityEngine;
+using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace MyCode
 {
     public class RotateUnitComponent : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpeed = 720f;
+        [SerializeField] private float _rotateDuraction = 0.2f;
 
-        public void Setup(float rotationSpeed)
+        public void StartRotate(DirectionType typeDirection, bool isFast = false)
         {
-            _rotationSpeed = rotationSpeed;
-        }
-
-        public async Task RotateAsync(DirectionType direction)
-        {
-            if (direction == DirectionType.None)
-                return;
-
-            Vector3 targetEuler = direction switch
+            float targetY = typeDirection switch
             {
-                DirectionType.Up => new Vector3(0, 0, 0),
-                DirectionType.Down => new Vector3(0, 180, 0),
-                DirectionType.Left => new Vector3(0, -90, 0),
-                DirectionType.Right => new Vector3(0, 90, 0),
-                _ => transform.eulerAngles
+                DirectionType.Up => 0,
+                DirectionType.Down => 180,
+                DirectionType.Left => -90,
+                DirectionType.Right => 90,
+                _ => 0
             };
 
-            Quaternion targetRotation = Quaternion.Euler(targetEuler);
+            Rotation(targetY, isFast);
+        }
 
-            while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-                await Task.Yield();
-            }
-
-            transform.rotation = targetRotation;
+        private void Rotation(float y, bool isFast)
+        {
+            if (!isFast)
+                transform.DORotate(new Vector3(0, y, 0), _rotateDuraction);
+            else
+                transform.localRotation = Quaternion.Euler(0, y, 0);
         }
     }
 }

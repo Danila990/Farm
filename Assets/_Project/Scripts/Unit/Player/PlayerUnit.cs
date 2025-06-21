@@ -7,43 +7,64 @@ namespace MyCode
 {
     public class PlayerUnit : MonoBehaviour
     {
-        [SerializeField] private PlayerInputController _playerInput;
         [SerializeField] private RotateUnitComponent _rotateComponent;
         [SerializeField] private MoveUnitComponent _moveComponent;
 
-        [Inject] private GridNavigation _gridNavigation;
-
-        private CancellationTokenSource _moveCts;
+        private IGridMap _gridMap;
         private Vector2Int _gridIndex;
+        private bool _isMove = false;
 
-        public void Setup(Vector2Int gridIndex, float moveSpeed, float rotateSpeed)
+        public void SetupUnit(IGridMap gridMap, Vector2Int gridIndex)
         {
+            StopMove();
+            _gridMap = gridMap;
             _gridIndex = gridIndex;
-            _moveComponent.Setup(moveSpeed);
-            _rotateComponent.Setup(rotateSpeed);
-            StartMove();
         }
 
-        private async void StartMove()
+        public void StopMove()
         {
-            while (true)
+            _isMove = false;
+        }
+
+        public void StartMove()
+        {
+            _isMove = true;
+        }
+
+        private void Update()
+        {
+            if (!_isMove || _moveComponent.IsMoved)
+                return;
+
+            DirectionType nextDirection = GetDirection();
+            if(nextDirection == DirectionType.None)
+                return;
+
+            _rotateComponent.StartRotate(nextDirection);
+            Vector2Int nextIndex = _gridIndex + nextDirection.ToVector();
+            if (_gridMap.TryGetPlatform(nextIndex, out Platform platform))
             {
-                DirectionType nextDirection = await _playerInput.WaitForDirectionAsync();
-
-                _moveCts?.Cancel();
-                _moveCts = new CancellationTokenSource();
-
-                await _rotateComponent.RotateAsync(nextDirection);
-
-                Vector2Int nextIndex = _gridIndex + nextDirection.ToVector();
-                if (_gridNavigation.TryGetPlatform(nextIndex, out Platform platform))
+                if (platform.IsCanMove)
                 {
                     _gridIndex = nextIndex;
-                    await _moveComponent.MoveAsync(platform.transform.position, _moveCts.Token);
+                    _moveComponent.StartMove(platform.transform.position);
+                    platform.Event();
                 }
-
-                await Task.Yield();
             }
+        }
+
+        private DirectionType GetDirection()
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+                return DirectionType.Up;
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                return DirectionType.Down;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+                return DirectionType.Left;
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+                return DirectionType.Right;
+
+            return DirectionType.None;
         }
     }
 }

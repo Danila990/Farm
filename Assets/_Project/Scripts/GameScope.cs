@@ -7,7 +7,7 @@ namespace MyCode
     public class GameScope : LifetimeScope
     {
         [Space(5), Header("Scope")]
-        [SerializeField] private GridController _gridController;
+        [SerializeField] private GameGrid _gameGrid;
         [SerializeField] private PlayerController _playerController;
 
         protected override void Configure(IContainerBuilder builder)
@@ -19,7 +19,7 @@ namespace MyCode
 
         private void BuildBase(IContainerBuilder builder)
         {
-            builder.Register<GameBootstrap>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<GameRoot>(Lifetime.Singleton).As<IInitializable, IStartable>();
             builder.Register<InjectService>(Lifetime.Singleton);
         }
 
@@ -30,8 +30,7 @@ namespace MyCode
 
         private void BuildGrid(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_gridController);
-            builder.Register<GridNavigation>(Lifetime.Singleton);
+            builder.RegisterComponent(_gameGrid);
         }
     }
 }

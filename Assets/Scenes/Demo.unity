@@ -695,8 +695,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2100149607}
   - component: {fileID: 2100149606}
-  - component: {fileID: 2100149604}
   - component: {fileID: 2100149603}
+  - component: {fileID: 2100149608}
   m_Layer: 0
   m_Name: GameScope
   m_TagString: Untagged
@@ -716,21 +716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c231f89eecf3e414ab52ed03cd7dea46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerScriptable: {fileID: 11400000, guid: f83a87bbfb754b64a8a2ae90f7357eda, type: 2}
---- !u!114 &2100149604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2100149602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f7537bf3fd96547839c2e29882e310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maps:
-  - {fileID: 7238938983994498182, guid: 36850afcee9f6ef46bc78e4e7dc7ffff, type: 3}
+  _prefab: {fileID: 8232682552273421814, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
+  _offset: {x: 0, y: 1, z: 0}
 --- !u!114 &2100149606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,9 +734,8 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _gridController: {fileID: 2100149604}
+  _gameGrid: {fileID: 2100149608}
   _playerController: {fileID: 2100149603}
-  _isPcInput: 1
 --- !u!4 &2100149607
 Transform:
   m_ObjectHideFlags: 0
@@ -765,6 +751,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2100149608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100149602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bab6c7574e45ce429d9fa0215075688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maps:
+  - {fileID: 5868229877003378339, guid: 36850afcee9f6ef46bc78e4e7dc7ffff, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,43 +1,48 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
-using VContainer.Unity;
+
 
 namespace MyCode
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private PlayerScriptable _playerScriptable;
+        [SerializeField] private PlayerUnit _prefab;
+        [SerializeField] private Vector3 _offset;
 
         private InjectService _injector;
-        private GridController _gridController;
+        private GameGrid _gameGrid;
 
         public PlayerUnit Player { get; private set; }
         public Platform Spawn { get; private set; }
 
         [Inject]
-        public void Constructor(InjectService injectService, GridController gridController)
+        public void Constructor(InjectService injectService, GameGrid gridController)
         {
             _injector = injectService;
-            _gridController = gridController;
+            _gameGrid = gridController;
         }
 
         public void Initialize()
         {
-            Spawn = _gridController.GetCurrentMap().FindPlatform(PlatformType.PlayerSpawn);
-            CreatePlayer();
-            RespawnPlayer();
-            Player.Setup(Spawn.GridIndex, _playerScriptable.PlayerInfo.MoveSpeed, _playerScriptable.PlayerInfo.RotateSpeed);
+            Player = _injector.CreateInject(_prefab);
+            _gameGrid.OnChangeMap += OnChangeMap;
         }
 
-        private void RespawnPlayer()
+        public void Startable()
         {
-            Player.transform.position = _playerScriptable.PlayerInfo.PosOffset + Spawn.transform.position;
+            Player.StartMove();
         }
 
-        private void CreatePlayer()
+        private void OnChangeMap(IGridMap gridMap)
         {
-            Player = _injector.CreateInject(_playerScriptable.PlayerInfo.Prefab);
+            Spawn = gridMap.FindPlatform(PlatformType.PlayerSpawn);
+            Player.transform.position = _offset + Spawn.transform.position;
+            Player.SetupUnit(gridMap, Spawn.GridIndex);
+        }
+
+        private void OnDestroy()
+        {
+            _gameGrid.OnChangeMap -= OnChangeMap;
         }
     }
 }
