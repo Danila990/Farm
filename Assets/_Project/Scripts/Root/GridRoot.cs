@@ -9,12 +9,11 @@ namespace MyCode
         public void Initialize()
         {
             MapController.Initialize();
-            CreateGrid();
         }
 
-        private void CreateGrid()
+        public void Startable()
         {
-
+            MapController.ActivateFirstMap();
         }
     }
 }

@@ -404,6 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061869332}
   - component: {fileID: 1061869331}
+  - component: {fileID: 1061869333}
   m_Layer: 0
   m_Name: GridRoot
   m_TagString: Untagged
@@ -423,6 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbd7a978c4c8694d90485a7d9fdfb44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MapController>k__BackingField: {fileID: 1061869333}
 --- !u!4 &1061869332
 Transform:
   m_ObjectHideFlags: 0
@@ -438,6 +440,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1349993804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061869333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061869330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbaa89033a8052446b50a3a764ba46b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maps:
+  - {fileID: 6250636496247400500, guid: 36850afcee9f6ef46bc78e4e7dc7ffff, type: 3}
+  - {fileID: 2283462543874711981, guid: 460115822d30fd544acf093020baa780, type: 3}
 --- !u!1 &1081794345
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +844,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1205422070}
   - {fileID: 659639837}
+  - {fileID: 1349993804}
   - {fileID: 1440926845}
   - {fileID: 1081794346}
-  - {fileID: 1349993804}

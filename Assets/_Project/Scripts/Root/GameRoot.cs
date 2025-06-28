@@ -17,11 +17,14 @@ namespace MyCode
         {
             _gridRoot.Initialize();
             _playerRoot.Initialize();
+            Debug.Log("Initialize");
         }
 
         private void Startable()
         {
+            _gridRoot.Startable();
             _playerRoot.Startable();
+            Debug.Log("Startable");
         }
     }
 }

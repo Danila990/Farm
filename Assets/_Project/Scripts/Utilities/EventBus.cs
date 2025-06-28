@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MyCode
 {
@@ -63,6 +64,8 @@ namespace MyCode
                     ((Action<T>)subscriber.Callback)?.Invoke(eventData);
                 }
             }
+
+            Debug.Log("Publish: " + eventData);
         }
     }
 }
