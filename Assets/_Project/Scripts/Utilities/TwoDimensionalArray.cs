@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace MyCode
@@ -41,18 +40,6 @@ namespace MyCode
                 return false;
 
             return true;
-        }
-
-        public bool TryGet(int x, int y, out T getObject)
-        {
-            if (Check(x, y))
-            {
-                getObject = Get(x, y);
-                return true;
-            }
-
-            getObject = default;
-            return false;
         }
 
         public T[,] Convert()

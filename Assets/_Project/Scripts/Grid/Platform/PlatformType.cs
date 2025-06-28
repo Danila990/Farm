@@ -6,6 +6,5 @@ namespace MyCode
         PlayerSpawn = 1,
         Finish = 2,
         Empty = 3,
-        Coin = 4,
     }
 }

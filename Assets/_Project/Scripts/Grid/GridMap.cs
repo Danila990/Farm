@@ -10,8 +10,7 @@ namespace MyCode
         public void SetupMap(ArrayLine<Platform>[] values)
         {
             _grid.Set(values);
-        }
-
+        } 
         public Vector2Int GetSizeGrid()
         {
             return _grid.GetSize();
@@ -41,18 +40,6 @@ namespace MyCode
         public bool CheckPlatform(Vector2Int index)
         {
             return _grid.Check(index.x, index.y);
-        }
-
-        public bool TryGetPlatform(Vector2Int index, out Platform platform)
-        {
-            if(_grid.TryGet(index.x, index.y, out Platform getPlatform))
-            {
-                platform = getPlatform;
-                return true;
-            }
-
-            platform = default;
-            return false;
         }
     }
 }
