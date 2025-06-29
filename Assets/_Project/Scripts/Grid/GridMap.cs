@@ -11,6 +11,7 @@ namespace MyCode
         {
             _grid.Set(values);
         } 
+
         public Vector2Int GetSizeGrid()
         {
             return _grid.GetSize();

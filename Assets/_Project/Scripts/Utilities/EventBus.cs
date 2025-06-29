@@ -20,11 +20,6 @@ namespace MyCode
 
         private static readonly Dictionary<Type, List<Subscriber>> _subscribers = new Dictionary<Type, List<Subscriber>>();
 
-        public static void Clear()
-        {
-            _subscribers.Clear();
-        }
-
         public static void Subscribe<T>(Action<T> callback, int priority = 0)
         {
             var type = typeof(T);
@@ -66,6 +61,11 @@ namespace MyCode
             }
 
             Debug.Log("Publish: " + eventData);
+        }
+
+        public static void Clear()
+        {
+            _subscribers.Clear();
         }
     }
 }

@@ -15,12 +15,13 @@ namespace MyCode
     public static class DirectionTypeExtension
     {
         private static readonly Dictionary<DirectionType, Vector2Int> DirectionVectors = new Dictionary<DirectionType, Vector2Int>()
-    {
+        {
+                {DirectionType.None, new Vector2Int(0, 0)},
                 {DirectionType.Up, new Vector2Int(0, 1)},
                 {DirectionType.Down, new Vector2Int(0, -1)},
                 {DirectionType.Left, new Vector2Int(-1, 0)},
                 {DirectionType.Right, new Vector2Int(1, 0)},
-    };
+        };
 
         public static Vector2Int ToVector(this DirectionType directionType)
         {
