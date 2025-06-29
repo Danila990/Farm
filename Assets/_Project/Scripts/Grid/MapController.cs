@@ -11,6 +11,16 @@ namespace MyCode
 
         public IGridMap CurrentMap => _currentMap;
 
+        private void OnEnable()
+        {
+            EventBus.Subscribe<FinishGrid>(OnFinish);
+        }
+
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<FinishGrid>(OnFinish);
+        }
+
         public void Initialize()
         {
             CreateMaps();
@@ -45,6 +55,11 @@ namespace MyCode
             }
 
             ActivateMap(_mapIndex);
+        }
+
+        private void OnFinish(FinishGrid finishGrid)
+        {
+            NextMap();
         }
 
         private void ActivateMap(int number)

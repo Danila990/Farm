@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maps:
-  - {fileID: 2283462543874711981, guid: 460115822d30fd544acf093020baa780, type: 3}
-  - {fileID: 6977813994546676383, guid: 36850afcee9f6ef46bc78e4e7dc7ffff, type: 3}
+  - {fileID: 8605439058361844483, guid: f72eb27bfbccffe4384b1fe031fb3522, type: 3}
+  - {fileID: 5793715444437555023, guid: 36850afcee9f6ef46bc78e4e7dc7ffff, type: 3}
 --- !u!1 &1205422069
 GameObject:
   m_ObjectHideFlags: 0

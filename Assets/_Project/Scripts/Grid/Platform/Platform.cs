@@ -1,21 +1,16 @@
 using UnityEngine;
 
-
 namespace MyCode
 {
     public class Platform : MonoBehaviour
     {
-        [SerializeField] private PlatformType _platformType = PlatformType.Default;
-        [SerializeField] private bool _isCanMove = true;
-        [SerializeField] private Vector2Int _gridIndex;
-
-        public PlatformType PlatformType => _platformType;
-        public bool IsCanMove => _isCanMove;
-        public Vector2Int GridIndex => _gridIndex;
+        [field: SerializeField] public PlatformType PlatformType { get; private set; } = PlatformType.Default;
+        [field: SerializeField] public bool IsCanMove { get; private set; } = true;
+        [field: SerializeField] public Vector2Int GridIndex { get; private set; }
 
         public void SetupPlatform(Vector2Int gridIndex)
         {
-            _gridIndex = gridIndex;
+            GridIndex = gridIndex;
         }
 
         public virtual void Event()
