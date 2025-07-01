@@ -4,7 +4,7 @@ namespace MyCode
     {
         public override void Event()
         {
-            EventBus.Publish(new FinishGrid());
+            EventBus.Publish(EventType.FinishPlatform);
         }
     }
 }

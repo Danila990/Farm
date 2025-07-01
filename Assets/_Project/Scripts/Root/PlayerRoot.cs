@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace MyCode
@@ -7,33 +6,31 @@ namespace MyCode
     {
         [SerializeField] private PlayerUnit _unitPrefab;
 
-        public PlayerUnit Player { get; private set; }
+        public PlayerUnit Unit { get; private set; }
 
-        private Platform _playerSpawn;
+        private IGridMap _gridMap;
 
-        private void OnEnable() => EventBus.Subscribe<IGridMap>(OnUpdateGridMap, 5);
-
-        private void OnDisable() =>  EventBus.Unsubscribe<IGridMap>(OnUpdateGridMap);
-
-        public void Initialize()
+        public void Initialize(IGridMap gridMap)
         {
+            _gridMap = gridMap;
             CreatePlayer();
         }
 
         public void Startable()
         {
-            Player.Startable();
+            SetPlayerSpawnPos();
+            Unit.Startable(_gridMap, _gridMap.FindPlatform(PlatformType.PlayerSpawn).GridIndex);
+        }
+
+        private void SetPlayerSpawnPos()
+        {
+            Platform playerSpawn = _gridMap.FindPlatform(PlatformType.PlayerSpawn);
+            Unit.transform.position = new Vector3(0, 0.5f, 0) + playerSpawn.transform.position;
         }
 
         private void CreatePlayer()
         {
-            Player = Instantiate(_unitPrefab);
-        }
-
-        private void OnUpdateGridMap(IGridMap map)
-        {
-            _playerSpawn = map.FindPlatform(PlatformType.PlayerSpawn);
-            Player.transform.position = new Vector3(0, 0.5f, 0) + _playerSpawn.transform.position;
+            Unit = Instantiate(_unitPrefab);
         }
     }
 }

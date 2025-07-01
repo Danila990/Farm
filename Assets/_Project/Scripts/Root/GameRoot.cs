@@ -16,7 +16,7 @@ namespace MyCode
         private void Initialize()
         {
             _gridRoot.Initialize();
-            _playerRoot.Initialize();
+            _playerRoot.Initialize(_gridRoot.GridMap);
             Debug.Log("Initialize");
         }
 

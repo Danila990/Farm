@@ -4,16 +4,23 @@ namespace MyCode
 {
     public class GridRoot : Singleton<GridRoot>
     {
-        [field: SerializeField] public MapController MapController { get; private set; }
+        [SerializeField] private GridMap _map;
 
+        public IGridMap GridMap => _map;
+        
         public void Initialize()
         {
-            MapController.Initialize();
+            CreateGrid();
         }
 
         public void Startable()
         {
-            MapController.ActivateFirstMap();
+            
+        }
+
+        private void CreateGrid()
+        {
+            _map = Instantiate(_map);
         }
     }
 }

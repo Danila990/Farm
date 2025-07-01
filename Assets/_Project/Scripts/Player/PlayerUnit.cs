@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using UnityEngine;
 
 
 namespace MyCode
@@ -12,43 +14,44 @@ namespace MyCode
         public Vector2Int GridIndex { get; private set; }
 
         private IGridMap _map;
-        private bool _isActive = false;
+        private CancellationTokenSource _moveCts;
 
-        private void OnEnable()
+        public void Startable(IGridMap map, Vector2Int gridIndex)
         {
-            EventBus.Subscribe<IGridMap>(OnUpdateGridMap);
+            _map = map;
+            GridIndex = gridIndex;
+            Moved();
         }
 
-        private void OnDisable()
+        private async void Moved()
         {
-            EventBus.Unsubscribe<IGridMap>(OnUpdateGridMap);
-        }
-
-        public void Startable()
-        {
-            _isActive = true;
-        }
-
-        private void Update()
-        {
-            if (_moveUnit.IsMoved || !_isActive)
-                return;
-
-            DirectionType nextDirection = GetDirection();
-            if (nextDirection == DirectionType.None)
-                return;
-
-            _rotateUnit.StartRotate(nextDirection);
-            Vector2Int nextIndex = GridIndex + nextDirection.ToVector();
-            if (!_map.CheckPlatform(nextIndex))
-                return;
-
-            Platform platform = _map.GetPlatform(nextIndex);
-            if (platform.IsCanMove)
+            while (true)
             {
-                GridIndex = nextIndex;
-                _moveUnit.StartMove(platform.transform.position);
-                platform.Event();
+                DirectionType nextDirection = GetDirection();
+                if (nextDirection == DirectionType.None)
+                {
+                    await Task.Yield();
+                    continue;
+                }
+
+                _moveCts = new CancellationTokenSource();
+                _moveCts?.Cancel();
+
+                _rotateUnit.StartRotate(nextDirection);
+                Vector2Int nextIndex = GridIndex + nextDirection.ToVector();
+                if (!_map.CheckPlatform(nextIndex))
+                {
+                    await Task.Yield();
+                    continue;
+                }
+
+                Platform platform = _map.GetPlatform(nextIndex);
+                if (platform.IsCanMove)
+                {
+                    GridIndex = nextIndex;
+                    await _moveUnit.MoveToAsync(platform.transform.position, _moveCts.Token);
+                    platform.Event();
+                }
             }
         }
 
@@ -64,13 +67,6 @@ namespace MyCode
                 return DirectionType.Right;
 
             return DirectionType.None;
-        }
-
-        private void OnUpdateGridMap(IGridMap map)
-        {
-            _moveUnit.Clear();
-            _map = map;
-            GridIndex = _map.FindPlatform(PlatformType.PlayerSpawn).GridIndex;
         }
     }
 }

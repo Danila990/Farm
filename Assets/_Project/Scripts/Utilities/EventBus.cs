@@ -78,7 +78,7 @@ namespace MyCode
                 }
             }
 
-            Debug.Log("Publish: " + eventData);
+            Debug.Log("Publish: " + key);
         }
 
         public static void Publish(EventType eventType)
@@ -92,6 +92,8 @@ namespace MyCode
                     ((Action)subscriber.Callback)?.Invoke();
                 }
             }
+
+            Debug.Log("Publish: " + key);
         }
 
         private static void InsertSubscriber(List<Subscriber> list, Subscriber subscriber)
@@ -108,5 +110,6 @@ namespace MyCode
     {
         Void = 0,
         Start,
+        FinishPlatform = 2,
     }
 }

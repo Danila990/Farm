@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,41 +6,17 @@ namespace MyCode
 {
     public class MoveUnitComponent : MonoBehaviour
     {
-        [SerializeField] private float _moveDuraction = 0.5f;
+        [SerializeField] private float _moveSpeed = 3f;
 
-        private Tween _moveTween;
-
-        public bool IsMoved => _moveTween != null && _moveTween.active;
-
-        public void StartMove(Vector3 target)
+        public async Task MoveToAsync(Vector3 targetPosition, CancellationToken token = default)
         {
-            if (IsMoved)
-                return;
+            while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _moveSpeed * Time.deltaTime);
+                await Task.Yield();
+            }
 
-            _moveTween = transform.DOMove(target, _moveDuraction)
-                .SetEase(Ease.Linear);
-        }
-
-        public void PauseMove()
-        {
-            if (IsMoved)
-                _moveTween.Pause();
-        }
-
-        public void PlayMove()
-        {
-            if (IsMoved)
-                _moveTween.Play();
-        }
-
-        public void Clear()
-        {
-            _moveTween?.Kill();
-        }
-
-        private void OnDestroy()
-        {
-            Clear();
+            transform.position = targetPosition;
         }
     }
 }
