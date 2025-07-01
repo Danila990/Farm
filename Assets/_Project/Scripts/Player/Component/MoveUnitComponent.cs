@@ -34,9 +34,14 @@ namespace MyCode
                 _moveTween.Play();
         }
 
-        private void OnDestroy()
+        public void Clear()
         {
             _moveTween?.Kill();
+        }
+
+        private void OnDestroy()
+        {
+            Clear();
         }
     }
 }

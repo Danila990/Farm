@@ -68,6 +68,7 @@ namespace MyCode
 
         private void OnUpdateGridMap(IGridMap map)
         {
+            _moveUnit.Clear();
             _map = map;
             GridIndex = _map.FindPlatform(PlatformType.PlayerSpawn).GridIndex;
         }

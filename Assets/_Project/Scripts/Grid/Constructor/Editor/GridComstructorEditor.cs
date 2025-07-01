@@ -1,4 +1,5 @@
 using System;
+using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace MyCode.Constructor
     public class GridComstructorEditor : Editor
     {
         private GridConstructor _constructor;
+        private Vector2Int _sizeGrid;
 
         public override void OnInspectorGUI()
         {
@@ -18,29 +20,28 @@ namespace MyCode.Constructor
             EditorGUILayout.Space(5);
 
             EditorGUILayout.BeginHorizontal();
-            BaseButton("Add Row X", _constructor.AddXGrid);
-            BaseButton("Remove Row X", _constructor.RemoveXGrid);
+            _sizeGrid = EditorGUILayout.Vector2IntField("New Size Grid", _sizeGrid);
+            BaseButton("Create Grid", () =>
+            {
+                if (_sizeGrid == Vector2Int.zero)
+                    return;
+
+                _constructor.CreateGrid(_sizeGrid);
+            });
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
-            BaseButton("Add Line Y", _constructor.AddYGrid);
-            BaseButton("Remove Line Y", _constructor.RemoveYGrid);
+            BaseButton("Create Preview grid", _constructor.CreatGrid);
+            BaseButton("Destroy Preview grid", _constructor.DestroyGrid);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             BaseButton("Reset Grid", _constructor.ResetGrid);
-            BaseButton("Reset Platform Types", _constructor.ResetPlatforms);
+            BaseButton("Reset Platform Types", _constructor.ResetPlatformsTypes);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(5);
 
-            BaseMidlleText("Grid map", 3);
-            EditorGUILayout.BeginHorizontal();
-            BaseButton("Create Grid map", _constructor.CreatGrid);
-            BaseButton("Destroy Grid map", _constructor.DestroyGrid);
-            EditorGUILayout.EndHorizontal();
-
-            BaseMidlleText("Prefab", 3);
-            BaseButton("Create new prefab", _constructor.CreatePrefab);
+            BaseButton("Create Prefab Grid map", _constructor.CreatePrefab);
 
             PrinSizeGrid();
             DrawPreviewGrid();
@@ -48,51 +49,27 @@ namespace MyCode.Constructor
 
         private void PrinSizeGrid()
         {
-            Vector2Int sizeGrid = new Vector2Int(_constructor.linesX.Length, _constructor.linesX[0].lineY.Length);
+            Vector2Int sizeGrid = new Vector2Int(_constructor.LinesX.Length, _constructor.LinesX[0].lineY.Length);
             BaseMidlleText($"Grid: X - {sizeGrid.x}, Y - {sizeGrid.y}", 10);
         }
 
-        /*private void DrawPreviewGrid()
-        {
-            for (int i = _constructor.linesX.Length - 1; i >= 0; i--)
-            {
-                EditorGUILayout.Space(5);
-                EditorGUILayout.BeginHorizontal();
-                if (_constructor.linesX[i] != null)
-                {
-                    for (int j = 0; j < _constructor.linesX[i].lineY.Length; j++)
-                    {
-                        Color enumColor = GetPlatfromColor(_constructor.linesX[i].lineY[j]);
-                        Rect rect = GUILayoutUtility.GetRect(20, 20);
-                        EditorGUI.DrawRect(rect, enumColor);
-                        GUI.color = Color.white;
-
-                        _constructor.linesX[i].lineY[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesX[i].lineY[j]);
-                        GUI.color = Color.white;
-                    }
-                }
-
-                EditorGUILayout.EndHorizontal();
-            }
-        }*/
-
         private void DrawPreviewGrid()
         {
-            for (int i = 0; i < _constructor.linesX.Length; i++)
+            for (int i = 0; i < _constructor.LinesX.Length; i++)
             {
                 EditorGUILayout.Space(5);
                 EditorGUILayout.BeginHorizontal();
 
-                if (_constructor.linesX[i] != null)
+                if (_constructor.LinesX[i] != null)
                 {
-                    for (int j = 0; j < _constructor.linesX[i].lineY.Length; j++)
+                    for (int j = 0; j < _constructor.LinesX[i].lineY.Length; j++)
                     {
-                        Color enumColor = GetPlatfromColor(_constructor.linesX[i].lineY[j]);
+                        Color enumColor = GetPlatfromColor(_constructor.LinesX[i].lineY[j]);
                         Rect rect = GUILayoutUtility.GetRect(20, 20);
                         EditorGUI.DrawRect(rect, enumColor);
                         GUI.color = Color.white;
 
-                        _constructor.linesX[i].lineY[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.linesX[i].lineY[j]);
+                        _constructor.LinesX[i].lineY[j] = (PlatformType)EditorGUILayout.EnumPopup(_constructor.LinesX[i].lineY[j]);
                         GUI.color = Color.white;
                     }
                 }

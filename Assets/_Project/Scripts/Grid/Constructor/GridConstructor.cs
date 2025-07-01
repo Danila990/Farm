@@ -8,16 +8,19 @@ namespace MyCode.Constructor
     public class GridConstructor : MonoBehaviour
     {
 #if UNITY_EDITOR
-        [HideInInspector] public ConstructorLine[] linesX;
+
+        public float OffsetPlatform = 1f;
+        public GridMap GridMap;
+
+        [HideInInspector] public ConstructorLine[] LinesX;
+
         [SerializeField] private MoodArray<Platform> _container;
-        public float offsetPlatform = 1f;
-        public GridMap gridMap;
 
         private void OnValidate()
         {
-            if (linesX == null || linesX.Length == 0)
+            if (LinesX == null || LinesX.Length == 0)
             {
-                linesX = new ConstructorLine[1]
+                LinesX = new ConstructorLine[1]
                 {
                     new ConstructorLine()
                     {
@@ -28,8 +31,8 @@ namespace MyCode.Constructor
         }
 
 
-        #region Constructor
-        public void AddYGrid()
+        #region ConstructorEditor
+        /*public void AddYGrid()
         {
             ConstructorLine[] newGridLines = new ConstructorLine[linesX.Length + 1];
             linesX.CopyTo(newGridLines, 0);
@@ -68,47 +71,58 @@ namespace MyCode.Constructor
                 linesX[i].lineY.CopyTo(newRow, 0);
                 linesX[i].lineY = newRow;
             }
+        }*/
+
+        public void CreateGrid(Vector2Int size)
+        {
+            LinesX = new ConstructorLine[size.x];
+            for (int i = 0; i < size.x; i++)
+            {
+                LinesX[i] = new ConstructorLine();
+                LinesX[i].lineY = new PlatformType[size.y];
+            }
         }
 
         public void ResetGrid()
         {
-            linesX = new ConstructorLine[1] { new ConstructorLine() { lineY = new PlatformType[1] { PlatformType.Default } } };
+            LinesX = new ConstructorLine[1] { new ConstructorLine() { lineY = new PlatformType[1] { PlatformType.Default } } };
         }
 
-        public void ResetPlatforms()
+        public void ResetPlatformsTypes()
         {
-            for (int i = 0; i < linesX.Length; i++)
+            for (int i = 0; i < LinesX.Length; i++)
             {
-                for (int j = 0; j < linesX[0].lineY.Length; j++)
+                for (int j = 0; j < LinesX[0].lineY.Length; j++)
                 {
-                    linesX[i].lineY[j] = PlatformType.Default;
+                    LinesX[i].lineY[j] = PlatformType.Default;
                 }
             }
         }
+
+        public void CreatePrefab()
+        {
+            if (GridMap == null)
+                CreatGrid();
+
+            string localPath = "Assets/_Project/Prefabs/Grid/" + GridMap.gameObject.name + ".prefab";
+            localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(GridMap.gameObject, localPath);
+            Debug.Log("Create prefab", prefab);
+            DestroyGrid();
+        }
+
         #endregion
 
         #region CreateGrid
 
-        public void CreatePrefab()
-        {
-            if (gridMap == null)
-                return;
-
-            string localPath = "Assets/_Project/Prefabs/Grid/" + gridMap.gameObject.name + ".prefab";
-            localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
-            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(gridMap.gameObject, localPath);
-            Debug.Log("Create prefab", prefab);
-        }
-
-
         public PlatformType[,] ConvertGrid()
         {
-            PlatformType[,] platforms = new PlatformType[linesX.Length, linesX[0].lineY.Length];
-            for (int i = 0; i < linesX.Length; i++)
+            PlatformType[,] platforms = new PlatformType[LinesX.Length, LinesX[0].lineY.Length];
+            for (int i = 0; i < LinesX.Length; i++)
             {
-                for (int j = 0; j < linesX[i].lineY.Length; j++)
+                for (int j = 0; j < LinesX[i].lineY.Length; j++)
                 {
-                    platforms[i, j] = linesX[i].lineY[j];
+                    platforms[i, j] = LinesX[i].lineY[j];
                 }
             }
 
@@ -117,14 +131,13 @@ namespace MyCode.Constructor
 
         public void CreatGrid()
         {
-            if (gridMap != null)
+            if (GridMap != null)
                 DestroyGrid();
-
 
             PlatformType[,] platfromTypes = ConvertGrid();
             Vector2Int gridSize = new Vector2Int(platfromTypes.GetLength(0), platfromTypes.GetLength(1));
-            Vector3 spawnOffset = MiddleOffest(offsetPlatform, gridSize);
-            gridMap = new GameObject($"GridMap({gridSize.x}, {gridSize.y})").AddComponent<GridMap>();
+            Vector3 spawnOffset = MiddleOffest(OffsetPlatform, gridSize);
+            GridMap = new GameObject($"GridMap({gridSize.x}, {gridSize.y})").AddComponent<GridMap>();
             ArrayLine<Platform>[] grid = new ArrayLine<Platform>[gridSize.x];
             for (int x = 0; x < gridSize.x; x++)
             {
@@ -138,23 +151,23 @@ namespace MyCode.Constructor
                 }
             }
 
-            gridMap.SetupMap(grid);
+            GridMap.SetupMap(grid);
         }
 
         public void DestroyGrid()
         {
-            if (gridMap == null)
+            if (GridMap == null)
                 return;
 
-            DestroyImmediate(gridMap.gameObject);
+            DestroyImmediate(GridMap.gameObject);
         }
 
         private Platform CreatePlatform(PlatformType platformType, int gridHeightX, int gridWidthY, Vector3 spawnOffset)
         {
             string namePlatform = $"Platform_{platformType}";
             Platform platform = Instantiate(_container.Get<Platform>(namePlatform));
-            platform.transform.position = new Vector3(gridHeightX * offsetPlatform, 0, gridWidthY * offsetPlatform) - spawnOffset;
-            platform.transform.parent = gridMap.transform;
+            platform.transform.position = new Vector3(gridHeightX * OffsetPlatform, 0, gridWidthY * OffsetPlatform) - spawnOffset;
+            platform.transform.parent = GridMap.transform;
             return platform;
         }
 
