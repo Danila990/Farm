@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class RotateUnitComponent : MonoBehaviour
+    public class RotateUnit : MonoBehaviour
     {
         [SerializeField] private float _rotateDuraction = 0.2f;
 

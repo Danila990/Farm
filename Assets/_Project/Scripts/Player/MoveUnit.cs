@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class MoveUnitComponent : MonoBehaviour
+    public class MoveUnit : MonoBehaviour
     {
         [SerializeField] private float _moveSpeed = 3f;
 

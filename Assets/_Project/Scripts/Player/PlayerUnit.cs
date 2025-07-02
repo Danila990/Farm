@@ -7,10 +7,8 @@ namespace MyCode
 {
     public class PlayerUnit : MonoBehaviour
     {
-        [SerializeField] private MoveUnitComponent _moveUnit;
-        [SerializeField] private RotateUnitComponent _rotateUnit;
-        [SerializeField] private HealthUnitComponent _healthUnit;
-
+        [SerializeField] private MoveUnit _moveUnit;
+        [SerializeField] private RotateUnit _rotateUnit;
         public Vector2Int GridIndex { get; private set; }
 
         private IGridMap _map;
