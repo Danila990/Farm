@@ -83,6 +83,9 @@ namespace MyCode
 
         public static void Publish(EventType eventType)
         {
+            if (eventType == EventType.Void)
+                throw new ArgumentException("Event type void");
+
             var key = (eventType, _voidType);
             if (_subscribersTest.TryGetValue(key, out var list))
             {
@@ -109,7 +112,8 @@ namespace MyCode
     public enum EventType
     {
         Void = 0,
-        Start,
-        FinishPlatform = 2,
+        Start = 1,
+        Finish = 2,
+        Coin = 3,
     }
 }

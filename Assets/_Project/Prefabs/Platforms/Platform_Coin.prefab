@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 570845656395420230}
   - component: {fileID: 4713095950717882958}
   - component: {fileID: 2971331531584563466}
-  - component: {fileID: 4923499972610146579}
+  - component: {fileID: 7604866796358928684}
   m_Layer: 0
-  m_Name: Platform_Finish
+  m_Name: Platform_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e18ded4b611aa8f4a9f0f261d2f29537, type: 2}
+  - {fileID: 2100000, guid: d76d5dba59c8a824a8170635648a356c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4923499972610146579
+--- !u!114 &7604866796358928684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0434d570fd4623b41a5aeb17cdb5ca7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _platformType: 2
+  _platformType: 4
   _canMove: 1
-  _eventType: 2
+  _eventType: 3

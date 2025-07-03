@@ -207,8 +207,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1203055560049471063}
   - component: {fileID: 207293713304731141}
-  - component: {fileID: 6280577838572433462}
-  - component: {fileID: 5659141082325965282}
+  - component: {fileID: 3101042631532421184}
+  - component: {fileID: 1456071823376840886}
   m_Layer: 0
   m_Name: PlayerUnit
   m_TagString: Untagged
@@ -244,10 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eec455bc2ae00d448dee0338de92681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveUnit: {fileID: 5659141082325965282}
-  _rotateUnit: {fileID: 6280577838572433462}
-  _healthUnit: {fileID: 0}
---- !u!114 &6280577838572433462
+  _moveUnit: {fileID: 3101042631532421184}
+  _rotateUnit: {fileID: 1456071823376840886}
+--- !u!114 &3101042631532421184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,20 +255,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6744347037735431576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d00e424100fec2488fc73255e86ef35, type: 3}
+  m_Script: {fileID: 11500000, guid: af77038c11052c04d94cf2c55a550489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+--- !u!114 &1456071823376840886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744347037735431576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763ef1e10e9ea8848a4bc90e0d06a932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateDuraction: 0.2
---- !u!114 &5659141082325965282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6744347037735431576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f9b2d4dd43c4c419abe5bbfc90bcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveDuraction: 0.5

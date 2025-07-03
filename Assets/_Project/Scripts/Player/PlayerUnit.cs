@@ -44,12 +44,14 @@ namespace MyCode
                 }
 
                 Platform platform = _map.GetPlatform(nextIndex);
-                if (platform.IsCanMove)
+                if (platform.CanMove)
                 {
                     GridIndex = nextIndex;
                     await _moveUnit.MoveToAsync(platform.transform.position, _moveCts.Token);
                     platform.Event();
                 }
+                else
+                    await Task.Yield();
             }
         }
 
