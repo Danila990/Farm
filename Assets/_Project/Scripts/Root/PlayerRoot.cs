@@ -5,6 +5,7 @@ namespace MyCode
     public class PlayerRoot : Singleton<PlayerRoot>
     {
         [SerializeField] private PlayerUnit _unitPrefab;
+        [SerializeField] private Vector3 _spawnOffset;
 
         public PlayerUnit Unit { get; private set; }
 
@@ -25,7 +26,7 @@ namespace MyCode
         private void SetPlayerSpawnPos()
         {
             Platform playerSpawn = _gridMap.FindPlatform(PlatformType.PlayerSpawn);
-            Unit.transform.position = new Vector3(0, 0.5f, 0) + playerSpawn.transform.position;
+            Unit.transform.position = _spawnOffset + playerSpawn.transform.position;
         }
 
         private void CreatePlayer()

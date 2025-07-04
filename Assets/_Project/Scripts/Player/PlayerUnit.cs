@@ -9,6 +9,7 @@ namespace MyCode
     {
         [SerializeField] private MoveUnit _moveUnit;
         [SerializeField] private RotateUnit _rotateUnit;
+        [SerializeField] private PlayerInputUnit _inputUnit;
         public Vector2Int GridIndex { get; private set; }
 
         private IGridMap _map;
@@ -25,7 +26,7 @@ namespace MyCode
         {
             while (true)
             {
-                DirectionType nextDirection = GetDirection();
+                DirectionType nextDirection = _inputUnit.GetDirection();
                 if (nextDirection == DirectionType.None)
                 {
                     await Task.Yield();
@@ -53,20 +54,6 @@ namespace MyCode
                 else
                     await Task.Yield();
             }
-        }
-
-        private DirectionType GetDirection()
-        {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-                return DirectionType.Up;
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-                return DirectionType.Down;
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-                return DirectionType.Left;
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-                return DirectionType.Right;
-
-            return DirectionType.None;
         }
     }
 }
