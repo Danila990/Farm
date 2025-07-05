@@ -260,10 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af77038c11052c04d94cf2c55a550489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _moveOffset: {x: 0, y: 1, z: 0}
-  jumpHeight: 2
-  jumpDuration: 0.3
+  _jumpHeight: 1
+  _jumpDuration: 0.3
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!114 &1456071823376840886
 MonoBehaviour:
   m_ObjectHideFlags: 0
