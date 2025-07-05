@@ -48,7 +48,7 @@ namespace MyCode
                 if (platform.CanMove)
                 {
                     GridIndex = nextIndex;
-                    await _moveUnit.MoveToAsync(platform.transform.position, _moveCts.Token);
+                    await _moveUnit.JumpToAsync(platform.transform.position, _moveCts.Token);
                     platform.Event();
                 }
                 else

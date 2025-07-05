@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 namespace MyCode
@@ -9,12 +10,27 @@ namespace MyCode
         [SerializeField] private float _moveSpeed = 3f;
         [SerializeField] private Vector3 _moveOffset;
 
-        public async Task MoveToAsync(Vector3 targetPosition, CancellationToken token = default)
+        [Tooltip("Высота прыжка")]
+        public float jumpHeight = 2f;
+
+        [Tooltip("Скорость движения")]
+        public float jumpDuration = 1f;
+
+        public async Task JumpToAsync(Vector3 targetPosition, CancellationToken token = default)
         {
             targetPosition += _moveOffset;
-            while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+            Vector3 startPosition = transform.position;
+            float elapsed = 0f;
+
+            while (elapsed < jumpDuration)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _moveSpeed * Time.deltaTime);
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / jumpDuration);
+
+                Vector3 horizontalPos = Vector3.Lerp(startPosition, targetPosition, t);
+                float heightOffset = 4 * jumpHeight * t * (1 - t);
+                transform.position = new Vector3(horizontalPos.x, horizontalPos.y + heightOffset, horizontalPos.z);
+
                 await Task.Yield();
             }
 
