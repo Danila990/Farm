@@ -7,5 +7,6 @@ namespace MyCode
         Finish = 2,
         Empty = 3,
         Coin = 4,
+        Rock = 5,
     }
 }

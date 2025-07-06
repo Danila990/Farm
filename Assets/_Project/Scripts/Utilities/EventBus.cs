@@ -96,7 +96,6 @@ namespace MyCode
                 }
             }
 
-            Debug.Log("Publish: " + key);
         }
 
         private static void InsertSubscriber(List<Subscriber> list, Subscriber subscriber)
@@ -113,7 +112,9 @@ namespace MyCode
     {
         Void = 0,
         Start = 1,
-        Finish = 2,
+        End = 2,
         Coin = 3,
+        Dead = 4,
+        Respawn = 5,
     }
 }

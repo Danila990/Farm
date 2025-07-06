@@ -115,6 +115,9 @@ namespace MyCode.Constructor
                 case PlatformType.Coin:
                     return Color.yellow;
 
+                case PlatformType.Rock:
+                    return Color.red;
+
                 default:
                     return Color.white;
             }
