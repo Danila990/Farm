@@ -10,6 +10,8 @@ namespace MyCode
         [SerializeField] private MoveUnit _moveUnit;
         [SerializeField] private RotateUnit _rotateUnit;
         [SerializeField] private PlayerInputUnit _inputUnit;
+        [SerializeField] private PlayerAnimatorUnity _animatorUnit;
+
         public Vector2Int GridIndex { get; private set; }
 
         private IGridMap _map;
@@ -47,9 +49,12 @@ namespace MyCode
                 Platform platform = _map.GetPlatform(nextIndex);
                 if (platform.CanMove)
                 {
+                    _animatorUnit.StartJumpAnimation();
                     GridIndex = nextIndex;
                     await _moveUnit.JumpToAsync(platform.transform.position, _moveCts.Token);
+                    _animatorUnit.EndJumpAnimation();
                     platform.Event();
+                    await Task.Delay(250);
                 }
                 else
                     await Task.Yield();

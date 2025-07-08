@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitPrefab: {fileID: 207293713304731141, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
-  _spawnOffset: {x: 0, y: 1, z: 0}
+  _spawnOffset: {x: 0, y: 0.1, z: 0}
 --- !u!1 &2089552645
 GameObject:
   m_ObjectHideFlags: 0
