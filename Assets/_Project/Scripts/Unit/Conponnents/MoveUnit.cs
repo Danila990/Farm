@@ -8,11 +8,18 @@ namespace MyCode
     {
         [SerializeField] private float _jumpHeight = 2f;
         [SerializeField] private float _jumpDuration = 1f;
-        [SerializeField] private Vector3 _offset;
+        [SerializeField] private float _offsetY;
+
+        public void Setup(float jumpHeight, float jumpDuration, float offsetY)
+        {
+            _jumpHeight = jumpHeight;
+            _jumpDuration = jumpDuration;
+            _offsetY = offsetY;
+        }
 
         public async Task JumpToAsync(Vector3 targetPosition, CancellationToken token = default)
         {
-            targetPosition += _offset;
+            targetPosition.y += _offsetY;
             Vector3 startPosition = transform.position;
             float elapsed = 0f;
 

@@ -7,6 +7,11 @@ namespace MyCode
     {
         [SerializeField] private float _rotateDuraction = 0.2f;
 
+        public void Setup(float rotateDuration)
+        {
+            _rotateDuraction = rotateDuration;
+        }
+
         public void StartRotate(DirectionType typeDirection, bool isFast = false)
         {
             float targetY = typeDirection switch

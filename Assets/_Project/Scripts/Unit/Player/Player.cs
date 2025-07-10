@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyCode
 {
-    public class PlayerUnit : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         [SerializeField] private MoveUnit _moveUnit;
         [SerializeField] private RotateUnit _rotateUnit;
@@ -15,16 +15,19 @@ namespace MyCode
         public Vector2Int GridIndex { get; private set; }
 
         private IGridMap _map;
+        private int _awaitDuration;
         private CancellationTokenSource _moveCts;
 
-        public void Startable(IGridMap map, Vector2Int gridIndex)
+        public void Setup(IGridMap map, Vector2Int gridIndex, PlayerSettings playerSettings)
         {
             _map = map;
             GridIndex = gridIndex;
-            Moved();
+            _moveUnit.Setup(playerSettings.JumpHeight, playerSettings.JumpDuration, playerSettings.OffsetY);
+            _rotateUnit.Setup(playerSettings.RotateDuration);
+            _awaitDuration = (int)(playerSettings.AwaitDuration * 1000);
         }
 
-        private async void Moved()
+        public async void Moved()
         {
             while (true)
             {
@@ -52,9 +55,9 @@ namespace MyCode
                     _animatorUnit.StartJumpAnimation();
                     GridIndex = nextIndex;
                     await _moveUnit.JumpToAsync(platform.transform.position, _moveCts.Token);
-                    _animatorUnit.EndJumpAnimation();
                     platform.Event();
-                    await Task.Delay(250);
+                    _animatorUnit.EndJumpAnimation();
+                    await Task.Delay(_awaitDuration);
                 }
                 else
                     await Task.Yield();
