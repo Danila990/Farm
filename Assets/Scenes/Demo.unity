@@ -619,37 +619,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836304549}
   m_CullTransparentMesh: 1
---- !u!1 &1002536464
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1002536465}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1002536465
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002536464}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 683.271, y: 882.81586, z: -20.94222}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1056714656
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +886,7 @@ GameObject:
   - component: {fileID: 1349993806}
   - component: {fileID: 1349993805}
   m_Layer: 0
-  m_Name: EntryPoint
+  m_Name: GameScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -947,16 +916,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349993802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 915bd4421c266644eb89dc585b88f7a3, type: 3}
+  m_Script: {fileID: 11500000, guid: dbe906f24cab21f4aaf9c76be2b6f140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
     PlayerPrefab: {fileID: 207293713304731141, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
-    RotateDuration: 0.2
-    JumpDuration: 0.3
-    JumpHeight: 1
+    RotateDuration: 0.104
+    JumpDuration: 0.296
+    JumpHeight: 2
     OffsetY: 0
-    AwaitDuration: 0.3
+    AwaitDuration: 0.2
 --- !u!114 &1349993806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,10 +935,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349993802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7de5e1b57f7c61e448f7521727ba78a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 448f38eb5c405054a966242673ccbfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _map: {fileID: 8358856368951631022, guid: fff4725cc41e53f4aa5ede14b76cdf2a, type: 3}
+  _map: {fileID: 1289501957904373526, guid: fff4725cc41e53f4aa5ede14b76cdf2a, type: 3}
 --- !u!114 &1349993807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,9 +948,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349993802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c0f74ddef65ba54bb453a8add6b41fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fbf927118d44254a864c2a011db722e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
   _gridController: {fileID: 1349993806}
   _playerController: {fileID: 1349993805}
 --- !u!1 &2089552645
@@ -1131,4 +1104,3 @@ SceneRoots:
   - {fileID: 1184378139}
   - {fileID: 192610121}
   - {fileID: 333717487}
-  - {fileID: 1002536465}
