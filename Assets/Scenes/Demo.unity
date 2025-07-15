@@ -919,13 +919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe906f24cab21f4aaf9c76be2b6f140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings:
-    PlayerPrefab: {fileID: 207293713304731141, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
-    RotateDuration: 0.104
-    JumpDuration: 0.296
-    JumpHeight: 2
-    OffsetY: 0
-    AwaitDuration: 0.2
+  _prefab: {fileID: 2576402297227944748, guid: e216542b69cbe0b46b1db5c1fc44113e, type: 3}
+  _startOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1349993806
 MonoBehaviour:
   m_ObjectHideFlags: 0

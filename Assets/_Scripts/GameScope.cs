@@ -13,6 +13,7 @@ namespace Code
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<InjectService>(Lifetime.Singleton);
             BuildGrid(builder);
             BuildPlayer(builder);
             builder.Register<CoinScore>(Lifetime.Singleton).As<IDisposable, IStartable>();

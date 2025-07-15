@@ -4,7 +4,7 @@ namespace Code
 {
     public interface IPlayerService 
     {
-        public Player GetPlayer();
+        public PlayerUnit GetPlayer();
         public void CreatePlayer();
         public void StartPlayer();
         public void StopPlayer();

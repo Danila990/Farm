@@ -4,22 +4,15 @@ using UnityEngine;
 
 namespace Code
 {
-    public class MoveUnit : MonoBehaviour
+    public class UnitMover : MonoBehaviour
     {
-        [SerializeField] private float _jumpHeight = 2f;
-        [SerializeField] private float _jumpDuration = 1f;
-        [SerializeField] private float _offsetY;
-
-        public void Setup(float jumpHeight, float jumpDuration, float offsetY)
-        {
-            _jumpHeight = jumpHeight;
-            _jumpDuration = jumpDuration;
-            _offsetY = offsetY;
-        }
+        [SerializeField] private float _jumpHeight = 1f;
+        [SerializeField] private float _jumpDuration = 0.5f;
+        [SerializeField] private float _offsetPosY;
 
         public async Task JumpToAsync(Vector3 targetPosition, CancellationToken token = default)
         {
-            targetPosition.y += _offsetY;
+            targetPosition.y += _offsetPosY;
             Vector3 startPosition = transform.position;
             float elapsed = 0f;
 

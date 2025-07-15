@@ -1,4 +1,3 @@
-using Code;
 using UnityEngine;
 using VContainer;
 
@@ -6,14 +5,16 @@ namespace Code
 {
     public class PlayerController : MonoBehaviour, IPlayerService
     {
-        [SerializeField] private PlayerSettings _settings;
+        [SerializeField] private PlayerUnit _prefab;
+        [SerializeField] private Vector3 _startOffset;
 
-        private Player _player;
+        private PlayerUnit _player;
         [Inject] private IGridService _gridService;
+        [Inject] private InjectService _injector;
 
         public void CreatePlayer()
         {
-            _player = Instantiate(_settings.PlayerPrefab);
+            _player = _injector.Create(_prefab);
         }
 
         public void DeadPlayer()
@@ -21,7 +22,7 @@ namespace Code
             SetPlayerSpawnPos();
         }
 
-        public Player GetPlayer()
+        public PlayerUnit GetPlayer()
         {
             return _player;
         }
@@ -43,10 +44,8 @@ namespace Code
 
         private void SetPlayerSpawnPos()
         {
-            IGridMap map = _gridService.GetGridMap();
-            _player.Setup(map, map.FindPlatform(PlatformType.PlayerSpawn).GridIndex, _settings);
-            Vector3 spawnPos = map.FindPlatform(PlatformType.PlayerSpawn).transform.position;
-            spawnPos.y += _settings.OffsetY;
+            Vector3 spawnPos = _gridService.GetGridMap().FindPlatform(PlatformType.PlayerSpawn).transform.position;
+            spawnPos += _startOffset;
             _player.transform.position = spawnPos;
         }
     }

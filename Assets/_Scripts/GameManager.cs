@@ -25,7 +25,7 @@ namespace Code
         {
             _gridService.CreateGrid();
             _playerService.CreatePlayer();
-            _playerService.GetPlayer().Moved();
+            _playerService.GetPlayer().StartMoved();
             _playerService.StartPlayer();
         }
     }

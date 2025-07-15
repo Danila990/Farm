@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Code
 {
@@ -30,6 +32,21 @@ namespace Code
         {
             _score = 0;
             _text.text = _score.ToString();
+        }
+    }
+
+    public class InjectService
+    {
+        [Inject] private readonly IObjectResolver _resolver;
+
+        public T Create<T>(T prefab) where T : MonoBehaviour
+        {
+            return _resolver.Instantiate(prefab);
+        }
+
+        public void Inject(GameObject injectObject)
+        {
+            _resolver.InjectGameObject(injectObject);
         }
     }
 }
