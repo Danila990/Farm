@@ -3,7 +3,7 @@ using ProjectCode;
 
 namespace ProjectCode
 {
-    public class PublishPlatform : Platform
+    public class EventPublishPlatform : Platform
     {
         [SerializeField] private ProjectCode.EventType _eventType;
 

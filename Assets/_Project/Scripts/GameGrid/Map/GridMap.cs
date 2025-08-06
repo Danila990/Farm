@@ -25,12 +25,12 @@ namespace ProjectCode
                 .FirstOrDefault();
         }
 
-        public Platform[] FindPlatforms(PlatformType platform)
+        public T[] FindPlatforms<T>(PlatformType platform) where T : Platform
         {
             return _grid.GetAll()
                 .SelectMany(line => line.LineValues)
                 .Where(p => p != null && p.PlatformType == platform)
-                .ToArray();
+                .ToArray() as T[];
         }
 
         public bool CheckPlatform(Vector2Int index)

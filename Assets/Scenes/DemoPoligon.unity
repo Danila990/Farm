@@ -450,12 +450,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2069594366}
-  - component: {fileID: 2069594370}
-  - component: {fileID: 2069594369}
-  - component: {fileID: 2069594368}
-  - component: {fileID: 2069594367}
+  - component: {fileID: 2069594371}
   m_Layer: 0
-  m_Name: ===GameEntryRoot===
+  m_Name: ===GameBootstrap===
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -476,7 +473,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2069594367
+--- !u!114 &2069594371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -485,51 +482,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2069594364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafc627398166fd48b26d1da81da523d, type: 3}
+  m_Script: {fileID: 11500000, guid: fd8ee48a0a17bc049b509a2689b3c967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pathPlayer: Player
---- !u!114 &2069594368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069594364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81bc9a3489ae1474ca47e89cce66b6ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pathGrid: GridMaps/GridMap_1
---- !u!114 &2069594369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069594364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aba004ae01f1e343b9066ad40c369a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputType: 0
---- !u!114 &2069594370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069594364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89e2642b05053e46b099892a2f3da57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputRoot: {fileID: 2069594369}
-  _playerRoot: {fileID: 2069594367}
-  _gridRoot: {fileID: 2069594368}
+  _pathSettings: SOSettings/LevelSettings_1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

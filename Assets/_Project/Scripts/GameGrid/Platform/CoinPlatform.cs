@@ -20,7 +20,7 @@ namespace ProjectCode
 
         public override void Event()
         {
-            if(!_isUp)
+            if (!_isUp)
             {
                 _coin.SetActive(false);
                 _isUp = true;

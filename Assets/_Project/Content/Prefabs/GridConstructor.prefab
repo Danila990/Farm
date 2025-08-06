@@ -46,11 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OffsetPlatform: 2
   GridMap: {fileID: 0}
-  PathGridMap: _Project/Content/Resources/GridMaps
+  PathGridMap: _Project/Content/Prefabs/GridMaps
   LinesX:
-  - lineY: 040000000000000002000000
-  - lineY: 030000000400000005000000
-  - lineY: 010000000000000004000000
+  - lineY: 0000000000000000000000000000000002000000000000000000000000000000
+  - lineY: 0100000000000000000000000000000000000000000000000000000000000000
   _container:
     _array:
     - {fileID: -2490663664088828891, guid: c2283d229c818ef4ea93d51272bbbac9, type: 3}

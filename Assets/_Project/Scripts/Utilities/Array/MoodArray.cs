@@ -9,6 +9,11 @@ namespace ProjectCode
     {
         [SerializeField] private TData[] _array;
 
+        public MoodArray(TData[] datas)
+        {
+            _array = datas;
+        }
+
         public TReturn Get<TReturn>(string key) where TReturn : TData
         {
             return (TReturn)Get(key);
