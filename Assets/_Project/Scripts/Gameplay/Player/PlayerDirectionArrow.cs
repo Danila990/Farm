@@ -15,7 +15,7 @@ namespace ProjectCode
         private DirectionType _nextDirection;
 
         private void OnEnable() => ServiceLocator.Get<IInputService>().OnInputDirection += OnUpdateDirection;
-        private void OnDisable() => ServiceLocator.Get<IInputService>().OnInputDirection -= OnUpdateDirection;
+        private void OnDestroy() => ServiceLocator.Get<IInputService>().OnInputDirection -= OnUpdateDirection;
 
         public void Init()
         {
