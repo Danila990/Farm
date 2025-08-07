@@ -1,48 +1,43 @@
-using Project1;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
-
 
 namespace ProjectCode
 {
     public class PlayerDirectionArrow : MonoBehaviour
     {
         [SerializeField] private GameObject _arrow;
-        [SerializeField] private GameObject _arrowNone;
+        [SerializeField] private float _rotateSpeeed = 600f;
 
-
-        private IInputService _input;
-        private PlayerGridMover _gridMover;
         private RotateComponent _rotate;
         private CancellationTokenSource _cts;
+        private DirectionType _currentDirection;
+        private DirectionType _nextDirection;
 
-        public void Init(PlayerGridMover gridMover, PlayerInfo playerInfo)
+        private void OnEnable() => ServiceLocator.Get<IInputService>().OnInputDirection += OnUpdateDirection;
+        private void OnDisable() => ServiceLocator.Get<IInputService>().OnInputDirection -= OnUpdateDirection;
+
+        public void Init()
         {
-            _rotate = new RotateComponent(_arrow.transform, playerInfo.SpeedArrow);
+            _rotate = new RotateComponent(_arrow.transform, _rotateSpeeed);
             _cts = new CancellationTokenSource();
-            
-            _gridMover = gridMover;
-            _input = ServiceLocator.Get<IInputService>();
+            RotateWhile();
         }
 
-        private void Update()
+        private async void RotateWhile()
         {
-            DirectionType inputType = _input.GetDirection();
-            if (_gridMover.IsActive)
-            {
-                _arrow.SetActive(true);
-                _arrowNone.SetActive(false);
-            }
-            else
-            {
-                _arrow.SetActive(false);
-                _arrowNone.SetActive(true);
-            }
+            if (_rotate.IsRotated || _nextDirection == DirectionType.None || _nextDirection == _currentDirection) return;
 
-            if (inputType == DirectionType.None || _rotate.IsRotated) return;
-
+            _currentDirection = _nextDirection;
             _cts?.Cancel();
-            _rotate.Rotate(inputType, _cts.Token);
+            _rotate.Rotate(_currentDirection, _cts.Token);
+            RotateWhile();
+        }
+
+        private void OnUpdateDirection(DirectionType directionType)
+        {
+            _nextDirection = directionType;
+            RotateWhile();
         }
     }
 }

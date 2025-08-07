@@ -19,7 +19,7 @@ namespace ProjectCode
 
         public async Task RotateAsync(DirectionType typeDirection, CancellationToken token = default)
         {
-            if (IsRotated) return;
+            if (IsRotated || typeDirection == DirectionType.None) return;
 
             IsRotated = true;
             Quaternion targetRotation = typeDirection.ToQuaternionY();

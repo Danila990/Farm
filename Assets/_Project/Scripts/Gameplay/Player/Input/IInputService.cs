@@ -4,7 +4,7 @@ namespace ProjectCode
 {
     public interface IInputService
     {
-        public DirectionType GetDirection();
+        public event Action<DirectionType> OnInputDirection;
         public void Activate();
         public void Deactivate();
     }

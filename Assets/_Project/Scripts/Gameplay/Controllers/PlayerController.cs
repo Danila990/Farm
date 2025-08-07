@@ -1,21 +1,16 @@
-﻿using Project1;
-using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+﻿using UnityEngine;
 
 namespace ProjectCode
 {
     public class PlayerController : MonoBehaviour
     {
-        private Player _player;
-        private PlayerGridMover _gridMover;
+        [SerializeField] private Player _player;
 
-        public void Initialize(LevelSettings levelSettings)
+        public void Initialize()
         {
-            _player = Instantiate(levelSettings.PlayerInfo.PlayerPrefab);
-            _gridMover = _player.GetComponent<PlayerGridMover>();
-            _player.Init(levelSettings.PlayerInfo);
+            _player = Instantiate(_player);
+            _player.Init();
             ServiceLocator.Register(_player);
-            ServiceLocator.Register(_gridMover);
         }
 
         public void Startable()

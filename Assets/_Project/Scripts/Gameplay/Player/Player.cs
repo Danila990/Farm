@@ -1,27 +1,27 @@
-using Project1;
+using ProjectCode;
 using System.Threading;
 using UnityEngine;
-
 
 namespace ProjectCode
 {
     public class Player : MonoBehaviour
     {
-        private PlayerGridMover _gridMover;
+        private PlayerNavigation _navigation;
+        private PlayerMover _mover;
         private PlayerDirectionArrow _directionArrow;
 
-        public void Init(PlayerInfo playerInfo)
+        public void Init()
         {
-            _gridMover = GetComponent<PlayerGridMover>();
+            _navigation = GetComponent<PlayerNavigation>();
+            _mover = GetComponent<PlayerMover>();
             _directionArrow = GetComponent<PlayerDirectionArrow>();
-
-            _gridMover.Init(playerInfo);
-            _directionArrow.Init(_gridMover, playerInfo);
+            _mover.Init();
+            _directionArrow.Init();
         }
 
         public void Startable()
         {
-            _gridMover.Startable();
+            _navigation.Setup();
         }
     }
 }

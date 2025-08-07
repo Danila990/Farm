@@ -1,15 +1,14 @@
-﻿using Project1;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ProjectCode
 {
     public class GridController : MonoBehaviour
     {
-        private GridMap _gridMap;
+        [SerializeField] private GridMap _gridMap;
 
-        public void Initialize(LevelSettings levelSettings)
+        public void Initialize()
         {
-            _gridMap = Instantiate(levelSettings.GridInfo.MapPrefab);
+            _gridMap = Instantiate(_gridMap);
             ServiceLocator.Register<IGridMap>(_gridMap);
         }
     }

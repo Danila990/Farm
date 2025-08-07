@@ -5,6 +5,8 @@ namespace ProjectCode
 {
     public class MobileInput : MonoBehaviour, IInputService
     {
+        public event Action<DirectionType> OnInputDirection;
+
         public void Activate()
         {
             
@@ -13,11 +15,6 @@ namespace ProjectCode
         public void Deactivate()
         {
             
-        }
-
-        public DirectionType GetDirection()
-        {
-            throw new NotImplementedException();
         }
     }
 }
